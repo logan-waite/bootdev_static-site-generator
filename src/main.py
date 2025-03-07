@@ -1,10 +1,12 @@
+import sys
 from generator_utils import copy_directory, generate_page_recursively
 
 
 def main():
-    copy_directory('static', 'public')
+    basepath = sys.argv[1]
+    copy_directory('static', 'docs')
     generate_page_recursively(
-        'content', 'template.html', 'public')
+        'content', 'template.html', 'docs', basepath)
 
 
 if __name__ == "__main__":
