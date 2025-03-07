@@ -28,7 +28,7 @@ class TestMarkdownToHtmlNode(unittest.TestCase):
         self.assertEqual(html, "<div><p>This is <b>bold</b> text</p></div>")
 
     def test_italic_text(self):
-        markdown = "This is *italic* text"
+        markdown = "This is _italic_ text"
         node = markdown_to_html_node(markdown)
         html = node.to_html()
         self.assertEqual(html, "<div><p>This is <i>italic</i> text</p></div>")
@@ -66,7 +66,7 @@ This is a code block
     def test_unordered_list_with_italics(self):
         markdown = """
 * First item
-* Second item *is italicized*
+* Second item _is italicized_
 * Third item
         """
         node = markdown_to_html_node(markdown)
@@ -100,7 +100,7 @@ This is a code block
         markdown = """ 
 # This is a heading
 
-This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
 
 * This is the first list item in a list block
 * This is a list item

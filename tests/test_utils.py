@@ -55,7 +55,7 @@ class TestTextToTextNodes(unittest.TestCase):
         self.assertEqual(result, expected)
 
     def test_just_italic(self):
-        result = utils.text_to_textnodes('just *italic* markdown')
+        result = utils.text_to_textnodes('just _italic_ markdown')
         expected = [
             TextNode('just ', TextType.NORMAL),
             TextNode('italic', TextType.ITALIC),
@@ -64,7 +64,7 @@ class TestTextToTextNodes(unittest.TestCase):
         self.assertEqual(result, expected)
 
     def test_bold_and_italic(self):
-        result = utils.text_to_textnodes('**bold** and *italic* markdown')
+        result = utils.text_to_textnodes('**bold** and _italic_ markdown')
         expected = [
             TextNode('bold', TextType.BOLD),
             TextNode(' and ', TextType.NORMAL),
@@ -84,7 +84,7 @@ class TestTextToTextNodes(unittest.TestCase):
 
     def test_bold_italic_and_code(self):
         result = utils.text_to_textnodes(
-            '**bold** and *italic* markdown with `code`')
+            '**bold** and _italic_ markdown with `code`')
         expected = [
             TextNode('bold', TextType.BOLD),
             TextNode(' and ', TextType.NORMAL),
@@ -96,7 +96,7 @@ class TestTextToTextNodes(unittest.TestCase):
 
     def test_bold_italic_code_and_image(self):
         result = utils.text_to_textnodes(
-            '**bold** and *italic* markdown with `code` and an ![image](image.url)')
+            '**bold** and _italic_ markdown with `code` and an ![image](image.url)')
         expected = [
             TextNode('bold', TextType.BOLD),
             TextNode(' and ', TextType.NORMAL),
@@ -110,7 +110,7 @@ class TestTextToTextNodes(unittest.TestCase):
 
     def test_all(self):
         result = utils.text_to_textnodes(
-            'This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)')
+            'This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)')
         expected = [
             TextNode("This is ", TextType.NORMAL),
             TextNode("text", TextType.BOLD),
@@ -132,7 +132,7 @@ class TestMarkdownToBlocks(unittest.TestCase):
         text = """
 # This is a heading
 
-This is a paragraph of text. It has some **bold** and *italic* words inside of it.
+This is a paragraph of text. It has some **bold** and _italic_ words inside of it.
 
 * This is the first list item in a list block
 * This is a list item
@@ -145,7 +145,7 @@ This is a code block
         blocks = utils.markdown_to_blocks(text)
         self.assertEqual(blocks, [
             '# This is a heading',
-            'This is a paragraph of text. It has some **bold** and *italic* words inside of it.',
+            'This is a paragraph of text. It has some **bold** and _italic_ words inside of it.',
             '* This is the first list item in a list block\n* This is a list item\n* This is another list item',
             '```\nThis is a code block\n```'
         ])
@@ -181,7 +181,7 @@ class TestGetBlockLines(unittest.TestCase):
         self.assertEqual(lines, ["code"])
 
     def test_get_quote_line(self):
-        lines = utils.get_block_lines("> quote", "quote")
+        lines = utils.get_block_lines("> quote", "blockquote")
         self.assertEqual(lines, ["quote"])
 
     def test_get_unordered_list(self):
